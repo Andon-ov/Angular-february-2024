@@ -9,3 +9,16 @@ Throughout the course, participants will delve into TypeScript, understanding it
 Additionally, the course covers views and data visualization templates, models, components, data binding, working with multiple views, observables, routing, data retrieval from REST services, and dependency injection (DI).
 
 By the end of this course, participants will have a solid understanding of Angular and the necessary skills to develop robust SPAs effectively.
+
+### For restore mongo db in docker you can use: 
+
+run docker:
+docker run -d --name mongodb -p 27017:27017 -v /path/to/forum:/home/forum mongo
+
+connect to container:
+then docker exec -it mongodb  /bin/bash          
+
+run command:
+then mongorestore -d forum /home/forum/forum
+
+
