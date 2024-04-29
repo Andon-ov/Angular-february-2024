@@ -1,7 +1,8 @@
 <header>
   <div class="mini-navbar-wrap">
     <div class="logo-wrap">
-      <p class="logo"><span class="logo">SoftUni Forum</span></p>
+      <p class="logo">Angular 17</p>
+      <span class="sub-logo">Forum</span>
     </div>
     <!-- <div *ngIf="isLoggedIn" class="mini-navbar"> -->
     <div class="mini-navbar">
@@ -15,20 +16,29 @@
           <a href="#">Register</a>
         </li>
       </ul>
+      } @else {
+      <ul>
+        <li>
+          <!-- <a [routerLink]="['auth/profile']">{{ username }}`s profile</a> -->
+        </li>
+        <li>
+          <!-- <a (click)="logout()">Logout</a> -->
+        </li>
+      </ul>
       }
     </div>
+    <nav>
+      <ul>
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Themes</a>
+        </li>
+        <li>
+          <a href="#">New&nbsp;Theme</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <nav>
-    <ul>
-      <li>
-        <a href="#">Home</a>
-      </li>
-      <li>
-        <a href="#">Themes</a>
-      </li>
-      <li>
-        <a href="#">New Theme</a>
-      </li>
-    </ul>
-  </nav>
 </header>

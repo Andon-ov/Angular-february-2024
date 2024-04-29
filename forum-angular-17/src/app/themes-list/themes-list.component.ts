@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../types/theme';
+import { Theme } from '../shared/types/theme';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 
