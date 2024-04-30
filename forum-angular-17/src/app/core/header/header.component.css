@@ -19,7 +19,7 @@ header ul span {
 }
 
 .mini-navbar ul {
-    border: 1px solid #00d4ff;
+    /* border: 1px solid #00d4ff; */
     border-radius: 0.3em;
     padding-left: 0;
     width: 100%;
@@ -70,11 +70,11 @@ header a {
 /* mini-navbar */
 
 .mini-navbar ul {
-    background-color: #6ba1b8;
-    border-radius: 5px;
+    /* background-color: #6ba1b8; */
+    /* border-radius: 5px; */
 }
 
 .mini-navbar ul li+li {
-    border-left: 1px solid lightgrey;
-    padding-left: .5em;
+    /* border-left: 1px solid lightgrey; */
+    /* padding-left: .5em; */
 }

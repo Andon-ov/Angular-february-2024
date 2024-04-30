@@ -1,13 +1,10 @@
-import { Theme } from './theme';
-import { User } from './user';
+import { IBase } from './base';
+import { ITheme } from './theme';
+import { IUser } from './user';
 
-export interface Post {
+export interface IPost extends IBase {
   likes: string[];
-  _id: string;
   text: string;
-  userId: User;
-  themeId: Theme;
-  created_at: string;
-  updatedAt: string;
-  __v: number;
+  userId: IUser;
+  themeId: ITheme;
 }

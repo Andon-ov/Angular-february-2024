@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../shared/types/theme';
+import { ITheme } from '../shared/types/theme';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './themes-list.component.css',
 })
 export class ThemesListComponent implements OnInit {
-  themes: Theme[] = [];
+  themes: ITheme[] = [];
 
   constructor(private apiService: ApiService) {}
 

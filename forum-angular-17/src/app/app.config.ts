@@ -2,19 +2,20 @@ import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { reducers } from './+store';
+import { appInterceptor } from './app.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([appInterceptor])),
     provideStore(reducers),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-  ], // adding provide here 
-     // and connect +store after install ng add @ngrx/store-devtools@latest
+  ], // adding provide here
+  // and connect +store after install ng add @ngrx/store-devtools@latest
 };
 
 // providers: [

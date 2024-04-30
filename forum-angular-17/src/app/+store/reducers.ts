@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import { login, register, logout, authenticate } from './actions';
-import { User } from '../shared/types/user';
+import { IUser } from '../shared/types';
 
 export interface AuthState {
-  currentUser: User | null | undefined;
+  currentUser: IUser | null | undefined;
 }
 
 export const initialState: AuthState = {
