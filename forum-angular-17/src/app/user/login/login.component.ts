@@ -9,14 +9,21 @@ import {
 } from '../+store/actions';
 import { IUserModuleState } from '../+store';
 import { Store } from '@ngrx/store';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, RouterLink],
   providers: [UserService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+    LoaderComponent,
+  ],
 })
 export class LoginComponent implements OnInit {
   isLoading$ = this.store.select((state) => state.user.login.isLoading);
@@ -41,7 +48,6 @@ export class LoginComponent implements OnInit {
     this.userService.login(formValue).subscribe({
       next: () => {
         this.store.dispatch(userLoginSetLoading({ isLoading: false }));
-        // this.isLoading = false;
         this.router.navigate(['/']);
       },
       error: (err: { error: { message: any } }) => {

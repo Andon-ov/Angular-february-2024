@@ -5,14 +5,15 @@ import { IUserModuleState } from '../+store';
 import { Store } from '@ngrx/store';
 import { userProfileSetEditMode, userProfileSetErrorMessage, userProfileSetLoading } from '../+store/actions';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [FormsModule,CommonModule],
-  providers: [UserService],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css',
+    selector: 'app-profile',
+    standalone: true,
+    providers: [UserService],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css',
+    imports: [FormsModule, CommonModule, LoaderComponent]
 })
 export class ProfileComponent implements OnInit {
   inEditMode$ = this.store.select(

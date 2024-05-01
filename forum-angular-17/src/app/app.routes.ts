@@ -3,6 +3,7 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
   {
@@ -21,46 +22,46 @@ export const routes: Routes = [
           title: 'HOME',
         },
       },
-      // {
-      //   path: '**',
-      //   component: NotFoundComponent,
-      //   data: {
-      //     title: '404'
-      //   }
-      // }
+      {
+        path: 'user',
+        // canActivateChild: [
+        //   AuthGuard
+        // ],
+        children: [
+          {
+            path: 'register',
+            component: RegisterComponent,
+            data: {
+              isLogged: false,
+              noNavigation: true,
+              title: 'REGISTER USER',
+            },
+          },
+          {
+            path: 'login',
+            component: LoginComponent,
+            data: {
+              isLogged: false,
+              title: 'USER LOGIN',
+            },
+          },
+          {
+            path: 'profile',
+            component: ProfileComponent,
+            data: {
+              isLogged: true,
+              title: 'USER PROFILE',
+            },
+          },
+        ],
+      },
+      {
+        path: '**',
+        component: NotFoundComponent,
+        data: {
+          title: '404',
+        },
+      },
     ],
-  },
-  {
-    path: 'user',
-    // canActivateChild: [
-    //   AuthGuard
-    // ],
-    children: [
-      {
-        path: 'register',
-        component: RegisterComponent,
-        data: {
-          isLogged: false,
-          noNavigation: true,
-          title: 'REGISTER USER',
-        },
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-        data: {
-          isLogged: false,
-          title: 'USER LOGIN',
-        },
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        data: {
-          isLogged: true,
-          title: 'USER PROFILE',
-        },
-      },
-    ],
-  },
+  }
 ];

@@ -151,7 +151,7 @@
     <button [disabled]="(isLoading$ | async) || form.invalid">
       Create Account
     </button>
-    <!-- <app-loader [isLoading]="isLoading$ | async"></app-loader> -->
+    <app-loader [isLoading]="(isLoading$ | async)!"></app-loader>
 
     <p class="text-center">
       Have an account?

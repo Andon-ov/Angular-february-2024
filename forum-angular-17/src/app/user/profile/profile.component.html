@@ -37,7 +37,7 @@
       (click)="toggleEditMode(true)">Cancel</button>
 
     <button [disabled]="isLoading$ | async" class="green-button">Save</button>
-    <!-- <app-loader [isLoading]="isLoading$ | async"></app-loader> -->
+    <app-loader [isLoading]="(isLoading$ | async)!"></app-loader>
   </form>
 </ng-template>
 

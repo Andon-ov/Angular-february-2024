@@ -18,14 +18,15 @@ import {
   userRegisterSetLoading,
 } from '../+store/actions';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,RouterLink],
-  providers: [UserService],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
+    selector: 'app-register',
+    standalone: true,
+    providers: [UserService],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css',
+    imports: [ReactiveFormsModule, CommonModule, RouterLink, LoaderComponent]
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;

@@ -68,8 +68,8 @@
       {{ errorMessage }}
     </p>
 
-    <button [disabled]="(isLoading$ | async) || f.invalid">Login</button>
-    <!-- <app-loader [isLoading]="(isLoading$ | async)"></app-loader> -->
+    <button class="button" [disabled]="(isLoading$ | async) || f.invalid">Login</button>
+    <app-loader [isLoading]="(isLoading$ | async)!"></app-loader>
 
     <p class="text-center">
       Have an account?

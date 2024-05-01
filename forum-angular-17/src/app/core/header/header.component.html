@@ -5,9 +5,22 @@
   {{ hideNavigation }} -->
   <div class="mini-navbar-wrap">
     <div class="logo-wrap">
-      <p class="logo"><span class="logo">SoftUni Forum</span></p>
+      <p class="logo"><span class="logo">Angular&nbsp;17</span></p>
+      <span class="sub-logo">Forum</span>
     </div>
     <div class="mini-navbar">
+      <ul>
+        <li>
+          <a routerLink="/home">Home</a>
+        </li>
+        <li>
+          <a routerLink="/theme">Themes</a>
+        </li>
+        <li>
+          <a routerLink="/theme/new">New&nbsp;Theme</a>
+        </li>
+      </ul>
+
       <ul *ngIf="isLogged$ | async; else notLoggedIn">
         <li>
           <a routerLink="/user/profile">Profile</a>
@@ -28,17 +41,5 @@
       </ng-template>
     </div>
   </div>
-  <nav>
-    <ul>
-      <li>
-        <a routerLink="/home">Home</a>
-      </li>
-      <li>
-        <a routerLink="/theme">Themes</a>
-      </li>
-      <li>
-        <a routerLink="/theme/new">New Theme</a>
-      </li>
-    </ul>
-  </nav>
+
 </header>
