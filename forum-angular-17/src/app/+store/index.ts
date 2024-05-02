@@ -9,3 +9,5 @@ export interface IRootState {
 export const reducers: ActionReducerMap<IRootState> = {
   auth: authReducer,
 };
+
+export { authReducer };

@@ -3,16 +3,32 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideStore } from '@ngrx/store';
+import { combineReducers, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { reducers } from './+store';
+
+
+
 import { appInterceptor } from './app.interceptor';
+
+import { reducers as userReducers } from './+store';
+import { IThemeState, reducers as themeReducers } from './theme/+store';
+import { IUserState, reducers as productReducers } from './user/+store'; 
+
+
+// const appReducers = combineReducers({
+//   user: userReducers,
+//   theme: themeReducers,
+//   product: productReducers
+// });
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([appInterceptor])),
-    provideStore(reducers),
+    provideStore(),
+ 
+
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ], // adding provide here
   // and connect +store after install ng add @ngrx/store-devtools@latest

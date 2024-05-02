@@ -18,3 +18,5 @@ export const reducers: ActionReducerMap<IUserState> = {
   register: registerReducer,
   profile: profileReducer
 };
+
+export { loginReducer, registerReducer, profileReducer };
