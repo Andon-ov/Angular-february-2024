@@ -1,30 +1,37 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ITheme } from '../../shared/types/theme';
-import { ApiService } from '../../services/api.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThemeListItemComponent } from "../theme-list-item/theme-list-item.component";
-import { Observable, Subscribable } from 'rxjs';
 import { IThemeModuleState } from '../+store';
 import { Store } from '@ngrx/store';
 import { themeListLoadThemeList } from '../+store/actions';
+import { ITheme } from '../../shared/types';
+import { ThemeService } from '../theme.service';
 
 @Component({
     selector: 'app-themes-list',
     standalone: true, // Add CommonModule to imports
     templateUrl: './themes-list.component.html',
     styleUrl: './themes-list.component.css',
-    imports: [CommonModule, ThemeListItemComponent]
+    imports: [CommonModule, ThemeListItemComponent],
+    providers:[ThemeService]
 })
-export class ThemesListComponent implements AfterViewInit {
+export class ThemesListComponent {
 
-  themeList$ = this.store.select(state => state.theme.list.themeList);
+  themeList: ITheme[] | undefined;
 
-  constructor(private store: Store<IThemeModuleState>) {
-    this.store.dispatch(themeListLoadThemeList());
+  constructor(private themeService: ThemeService) { }
+
+  ngOnInit(): void {
+    this.themeService.loadThemeList().subscribe(themeList => {
+      this.themeList = themeList;
+    });
   }
 
-  ngAfterViewInit(): void {
-    console.log('View was initialized');
-  }
+  // themeList$ = this.store.select(state => state.theme.list.themeList);
+
+  // constructor(private store: Store<IThemeModuleState>) {
+  //   this.store.dispatch(themeListLoadThemeList());
+  // }
+
 
 }

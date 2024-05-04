@@ -4,64 +4,87 @@ import { RegisterComponent } from './user/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ThemeComponent } from './theme/theme/theme.component';
+import { NewComponent } from './theme/new/new.component';
+import { DetailComponent } from './theme/detail/detail.component';
 
 export const routes: Routes = [
   {
     path: '',
-    // canActivateChild: [AuthGuard],
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: {
+      title: 'HOME',
+    },
+  },
+  {
+    path: 'user',
+    children: [
+      {
+        path: 'register',
+        component: RegisterComponent,
+        data: {
+          isLogged: false,
+          noNavigation: true,
+          title: 'REGISTER USER',
+        },
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: {
+          isLogged: false,
+          title: 'USER LOGIN',
+        },
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        data: {
+          isLogged: true,
+          title: 'USER PROFILE',
+        },
+      },
+    ],
+  },
+  {
+    path: 'theme',
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '/home',
-      },
-      {
-        path: 'home',
-        component: HomeComponent,
+        component: ThemeComponent,
         data: {
-          title: 'HOME',
-        },
+          title: 'THEME'
+        }
       },
       {
-        path: 'user',
-        // canActivateChild: [
-        //   AuthGuard
-        // ],
-        children: [
-          {
-            path: 'register',
-            component: RegisterComponent,
-            data: {
-              isLogged: false,
-              noNavigation: true,
-              title: 'REGISTER USER',
-            },
-          },
-          {
-            path: 'login',
-            component: LoginComponent,
-            data: {
-              isLogged: false,
-              title: 'USER LOGIN',
-            },
-          },
-          {
-            path: 'profile',
-            component: ProfileComponent,
-            data: {
-              isLogged: true,
-              title: 'USER PROFILE',
-            },
-          },
-        ],
-      },
-      {
-        path: '**',
-        component: NotFoundComponent,
+        path: 'new',
+        component: NewComponent,
         data: {
-          title: '404',
-        },
+          title: 'NEW THEME',
+          isLogged: true
+        }
       },
+      {
+        path: 'detail/:id',
+        component: DetailComponent,
+        data: {
+          title: 'THEME DETAIL',
+          isLogged: true
+        }
+      }
     ],
-  }
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    data: {
+      title: '404',
+    },
+  },
 ];

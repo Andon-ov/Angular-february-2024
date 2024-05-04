@@ -10,7 +10,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { appInterceptor } from './app.interceptor';
 
-import { reducers as userReducers } from './+store';
+import { reducers, reducers as userReducers } from './+store';
 import { IThemeState, reducers as themeReducers } from './theme/+store';
 import { IUserState, reducers as productReducers } from './user/+store'; 
 
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([appInterceptor])),
-    provideStore(),
+    provideStore(reducers),
  
 
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

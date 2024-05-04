@@ -10,6 +10,7 @@ import {
 import { IUserModuleState } from '../+store';
 import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -25,37 +26,73 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
     LoaderComponent,
   ],
 })
+// export class LoginComponent implements OnInit {
+//   isLoading$ = this.store.select((state) => state.user.login.isLoading);
+//   errorMessage$ = this.store.select((state) => state.user.login.errorMessage);
+
+//   constructor(
+//     private userService: UserService,
+//     private router: Router,
+//     private store: Store<IUserModuleState>
+//   ) {}
+
+//   ngOnInit(): void {}
+
+//   changeHandler(data: any): void {
+//     console.log(data);
+//   }
+
+//   submitFormHandler(formValue: { email: string; password: string }): void {
+//     this.store.dispatch(userLoginSetLoading({ isLoading: true }));
+//     this.store.dispatch(userLoginSetErrorMessage({ message: '' }));
+
+//     this.userService.login(formValue).subscribe({
+//       next: () => {
+//         this.store.dispatch(userLoginSetLoading({ isLoading: false }));
+//         this.router.navigate(['/']);
+//       },
+//       error: (err: { error: { message: any } }) => {
+//         this.store.dispatch(userLoginSetLoading({ isLoading: false }));
+//         this.store.dispatch(
+//           userLoginSetErrorMessage({ message: err.error.message })
+//         );
+//       },
+//     });
+//   }
+// }
+
 export class LoginComponent implements OnInit {
-  isLoading$ = this.store.select((state) => state.user.login.isLoading);
-  errorMessage$ = this.store.select((state) => state.user.login.errorMessage);
+
+  isLoading = false;
+  errorMessage = '';
 
   constructor(
-    private userService: UserService,
-    private router: Router,
-    private store: Store<IUserModuleState>
-  ) {}
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   changeHandler(data: any): void {
     console.log(data);
   }
 
-  submitFormHandler(formValue: { email: string; password: string }): void {
-    this.store.dispatch(userLoginSetLoading({ isLoading: true }));
-    this.store.dispatch(userLoginSetErrorMessage({ message: '' }));
-
-    this.userService.login(formValue).subscribe({
-      next: () => {
-        this.store.dispatch(userLoginSetLoading({ isLoading: false }));
-        this.router.navigate(['/']);
-      },
-      error: (err: { error: { message: any } }) => {
-        this.store.dispatch(userLoginSetLoading({ isLoading: false }));
-        this.store.dispatch(
-          userLoginSetErrorMessage({ message: err.error.message })
-        );
-      },
-    });
+  submitFormHandler(formValue: { email: string, password: string }): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.authService.login(formValue).subscribe(
+      {
+        next: (data) => {
+          this.isLoading = false;
+          this.router.navigate(['/']);
+        },
+        error: (err) => {
+          this.errorMessage = err.error.message;
+          this.isLoading = false;
+        }
+      }
+    );
   }
+
 }

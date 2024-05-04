@@ -19,6 +19,7 @@ import {
 } from '../+store/actions';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from "../../shared/loader/loader.component";
+import { AuthService } from '../../core/auth.service';
 
 @Component({
     selector: 'app-register',
@@ -28,58 +29,100 @@ import { LoaderComponent } from "../../shared/loader/loader.component";
     styleUrl: './register.component.css',
     imports: [ReactiveFormsModule, CommonModule, RouterLink, LoaderComponent]
 })
+// export class RegisterComponent implements OnInit {
+//   form: FormGroup;
+
+//   isLoading$ = this.store.select((state) => state.user.register.isLoading);
+//   errorMessage$ = this.store.select(
+//     (state) => state.user.register.errorMessage
+//   );
+
+//   constructor(
+//     private fb: FormBuilder,
+//     private userService: UserService,
+//     private router: Router,
+//     private store: Store<IUserModuleState>
+//   ) {
+//     const passwordControl = this.fb.control('', [
+//       Validators.required,
+//       Validators.minLength(4),
+//     ]);
+//     this.form = this.fb.group({
+//       username: ['', [Validators.required, Validators.minLength(5)]],
+//       email: ['', [Validators.required, emailValidator]],
+//       tel: [''],
+//       password: passwordControl,
+//       rePassword: [
+//         '',
+//         [
+//           Validators.required,
+//           Validators.minLength(5),
+//           rePasswordValidatorFactory(passwordControl),
+//         ],
+//       ],
+//     });
+//   }
+
+//   ngOnInit(): void {}
+
+//   submitHandler(): void {
+//     const data = this.form.value;
+//     this.store.dispatch(userRegisterSetLoading({ isLoading: true }));
+//     this.store.dispatch(userLoginSetErrorMessage({ message: '' }));
+
+//     this.userService.register(data).subscribe({
+//       next: () => {
+//         this.store.dispatch(userRegisterSetLoading({ isLoading: false }));
+//         this.router.navigate(['/']);
+//       },
+//       error: (err) => {
+//         this.store.dispatch(
+//           userLoginSetErrorMessage({ message: err.error.message })
+//         );
+//         this.store.dispatch(userRegisterSetLoading({ isLoading: false }));
+//       },
+//     });
+//   }
+// }
+
 export class RegisterComponent implements OnInit {
+
   form: FormGroup;
 
-  isLoading$ = this.store.select((state) => state.user.register.isLoading);
-  errorMessage$ = this.store.select(
-    (state) => state.user.register.errorMessage
-  );
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private router: Router,
-    private store: Store<IUserModuleState>
+    private authService: AuthService,
+    private router: Router
   ) {
-    const passwordControl = this.fb.control('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]);
+    const passwordControl = this.fb.control('', [Validators.required, Validators.minLength(4)]);
     this.form = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, emailValidator]],
       tel: [''],
       password: passwordControl,
-      rePassword: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          rePasswordValidatorFactory(passwordControl),
-        ],
-      ],
+      rePassword: ['', [Validators.required, Validators.minLength(5), rePasswordValidatorFactory(passwordControl)]]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   submitHandler(): void {
     const data = this.form.value;
-    this.store.dispatch(userRegisterSetLoading({ isLoading: true }));
-    this.store.dispatch(userLoginSetErrorMessage({ message: '' }));
+    this.isLoading = true;
 
-    this.userService.register(data).subscribe({
+    this.authService.register(data).subscribe({
       next: () => {
-        this.store.dispatch(userRegisterSetLoading({ isLoading: false }));
+        this.isLoading = false;
         this.router.navigate(['/']);
       },
       error: (err) => {
-        this.store.dispatch(
-          userLoginSetErrorMessage({ message: err.error.message })
-        );
-        this.store.dispatch(userRegisterSetLoading({ isLoading: false }));
-      },
+        this.isLoading = false;
+        console.error(err);
+      }
     });
   }
+
 }
