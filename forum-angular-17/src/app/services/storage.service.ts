@@ -139,35 +139,7 @@ export class BrowserStorage implements IStorage {
   }
 }
 
-// export class ServerStorage implements IStorage {
 
-//   localStorage: { [key: string]: any } = {
-//     data: {},
-//     setItem<T>(key: string, item: T): void {
-//       this.data[key] = item;
-//     },
-//     getItem<T>(key: string): T | null {
-//       return this.data[key];
-//     },
-//   };
-
-//   setItem<T>(key: string, item: T): T {
-//     this.localStorage.setItem(key, JSON.stringify(item));
-//     return item;
-//   }
-
-//   getItem<T>(key: string): T | null {
-//     const tmp = this.localStorage.getItem(key) as any;
-//     if (!tmp) {
-//       return null;
-//     }
-//     try {
-//       return JSON.parse(tmp);
-//     } catch {
-//       return tmp;
-//     }
-//   }
-// }
 
 export class ServerStorage implements IStorage {
   private data: { [key: string]: any };

@@ -26,6 +26,59 @@ import { AuthService } from '../../core/auth.service';
     LoaderComponent,
   ],
 })
+export class LoginComponent implements OnInit {
+  isLoading = false;
+  errorMessage = '';
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {}
+
+  changeHandler(data: any): void {
+    console.log(data);
+  }
+
+  // submitFormHandler(formValue: { email: string, password: string }): void {
+  //   this.isLoading = true;
+  //   this.errorMessage = '';
+  //   this.authService.login(formValue).subscribe(
+  //     {
+  //       next: (data) => {
+  //         this.isLoading = false;
+  //         this.router.navigate(['/']);
+  //       },
+  //       error: (err) => {
+  //         this.errorMessage = err.error.message;
+  //         this.isLoading = false;
+  //       }
+  //     }
+  //   );
+  // }
+
+  submitFormHandler(formValue: { email: string; password: string }): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.authService.login(formValue).subscribe({
+      next: (data) => {
+        this.authService.authenticate().subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.router.navigate(['/']);
+          },
+          error: (err) => {
+            this.errorMessage = err.error.message;
+            this.isLoading = false;
+          },
+        });
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
+        this.isLoading = false;
+      },
+    });
+  }
+}
+
 // export class LoginComponent implements OnInit {
 //   isLoading$ = this.store.select((state) => state.user.login.isLoading);
 //   errorMessage$ = this.store.select((state) => state.user.login.errorMessage);
@@ -60,39 +113,3 @@ import { AuthService } from '../../core/auth.service';
 //     });
 //   }
 // }
-
-export class LoginComponent implements OnInit {
-
-  isLoading = false;
-  errorMessage = '';
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-  }
-
-  changeHandler(data: any): void {
-    console.log(data);
-  }
-
-  submitFormHandler(formValue: { email: string, password: string }): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-    this.authService.login(formValue).subscribe(
-      {
-        next: (data) => {
-          this.isLoading = false;
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          this.errorMessage = err.error.message;
-          this.isLoading = false;
-        }
-      }
-    );
-  }
-
-}

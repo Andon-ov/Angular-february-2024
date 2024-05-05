@@ -22,6 +22,30 @@ const apiUrl = environment.apiUrl;
 @Injectable({
   providedIn: 'root',
 })
+
+
+export class UserService {
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
+
+  getCurrentUserProfile(): Observable<any> {
+    return this.http.get<IUser>(`api/users/profile`).pipe(
+      tap((user: IUser) => this.authService.updateCurrentUser(user))
+    );
+  }
+
+  updateProfile(data: any): Observable<IUser> {
+    return this.http.put<IUser>(`api/users/profile`, data).pipe(
+      tap((user: IUser) => this.authService.updateCurrentUser(user))
+    );
+  }
+}
+
+
+
 // export class UserService {
 //   currentUser$ = this.store.select((state) => state.auth.currentUser);
 
@@ -71,24 +95,3 @@ const apiUrl = environment.apiUrl;
 //       .pipe(tap((user: IUser) => this.store.dispatch(authenticate({ user }))));
 //   }
 // }
-
-
-export class UserService {
-
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) { }
-
-  getCurrentUserProfile(): Observable<any> {
-    return this.http.get<IUser>(`api/users/profile`).pipe(
-      tap((user: IUser) => this.authService.updateCurrentUser(user))
-    );
-  }
-
-  updateProfile(data: any): Observable<IUser> {
-    return this.http.put<IUser>(`api/users/profile`, data).pipe(
-      tap((user: IUser) => this.authService.updateCurrentUser(user))
-    );
-  }
-}

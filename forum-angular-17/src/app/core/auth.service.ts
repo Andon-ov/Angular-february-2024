@@ -7,9 +7,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
+
   private _currentUser: BehaviorSubject<IUser | null> =
     new BehaviorSubject<IUser | null>(null);
+
   currentUser$ = this._currentUser.asObservable();
+  
   isLogged$ = this.currentUser$.pipe(map((user) => !!user));
   isReady$ = this.currentUser$.pipe(map((user) => user !== undefined));
 
@@ -38,7 +41,7 @@ export class AuthService {
   }
 
   authenticate(): Observable<any> {
-    return this.http.get<IUser>(`api/profile`).pipe(
+    return this.http.get<IUser>(`api/users/profile`).pipe(
       tap((user: IUser) => this._currentUser.next(user)),
       catchError(() => {
         this._currentUser.next(null);
