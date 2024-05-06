@@ -12,7 +12,8 @@ import { AuthService } from '../core/auth.service';
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [ThemesListComponent, PostsListComponent,CommonModule,RouterModule]
+    imports: [ThemesListComponent, PostsListComponent,CommonModule,RouterModule],
+    providers:[AuthService]
 })
 export class HomeComponent {
 

@@ -7,10 +7,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ThemeComponent } from './theme/theme/theme.component';
 import { NewComponent } from './theme/new/new.component';
 import { DetailComponent } from './theme/detail/detail.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    // canActivateChild:  [authGuard],
     redirectTo: '/home',
     pathMatch: 'full',
   },

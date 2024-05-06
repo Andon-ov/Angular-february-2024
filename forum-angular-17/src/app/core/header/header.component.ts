@@ -8,7 +8,7 @@ import { UserService } from '../../user/user.service';
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule], // Add CommonModule
-  providers: [AuthService, UserService],
+  providers: [AuthService ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -21,7 +21,6 @@ export class HeaderComponent {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private router: Router
   ) {
   }
@@ -32,10 +31,10 @@ export class HeaderComponent {
         .subscribe(() => this.router.navigate(['/user/login']));
   }
 
-  ngOnInit(): void {
-    this.userService.getCurrentUserProfile().subscribe(
-    );
-  }
+  // ngOnInit(): void {
+  //   this.userService.getCurrentUserProfile().subscribe(
+  //   );
+  // }
 }
 
 // must rerender after login

@@ -9,10 +9,9 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 
 import { appInterceptor } from './app.interceptor';
+import { reducers } from './+store';
 
-import { reducers, reducers as userReducers } from './+store';
-import { IThemeState, reducers as themeReducers } from './theme/+store';
-import { IUserState, reducers as productReducers } from './user/+store'; 
+
 
 
 // const appReducers = combineReducers({
