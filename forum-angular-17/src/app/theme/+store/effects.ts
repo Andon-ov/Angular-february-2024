@@ -12,7 +12,7 @@ import {
   themeListSetThemeList,
   themeListThemeListLoadError
 } from './actions';
-import { ITheme } from '../../shared/types/theme';
+import { ITheme } from '../../shared/types';
 import { of } from 'rxjs';
 import { ActionCreator } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';

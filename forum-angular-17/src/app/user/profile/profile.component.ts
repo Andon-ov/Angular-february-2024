@@ -7,6 +7,7 @@ import { userProfileSetEditMode, userProfileSetErrorMessage, userProfileSetLoadi
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from "../../shared/loader/loader.component";
 import { AuthService } from '../../core/auth.service';
+import {filter, take} from "rxjs/operators";
 
 @Component({
     selector: 'app-profile',
@@ -17,27 +18,40 @@ import { AuthService } from '../../core/auth.service';
     imports: [FormsModule, CommonModule, LoaderComponent]
 })
 export class ProfileComponent implements OnInit {
-  inEditMode$ = this.store.select(
-    (state: { user: { profile: { isEditMode: any } } }) =>
-      state.user.profile.isEditMode
-  );
-  isLoading$ = this.store.select(
-    (state: { user: { profile: { isLoading: any } } }) =>
-      state.user.profile.isLoading
-  );
+
+  inEditMode$ = this.store.select(state => state.user?.profile?.isEditMode);
+  isLoading$ = this.store.select(state => state.user?.profile?.isLoading);
+
+
   currentUser$ = this.authService.currentUser$;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private store: Store<IUserModuleState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.userService.getCurrentUserProfile().subscribe();
+
+    this.currentUser$
+      .pipe(
+        filter(user => !!user), // Филтриране на null или undefined стойности
+        take(1) // Вземане само на първата валидна стойност и после автоматично прекратяване на подписката
+      )
+      .subscribe(user => {
+        console.log('Current User:', user);
+        this.inEditMode$.subscribe(value => console.log('inEditMode$', value));
+        this.isLoading$.subscribe(value => console.log('isLoading$', value));
+      });
+
   }
 
   toggleEditMode(currentValue: any): void {
+    // this.currentUser$.subscribe(user => console.log(user))
+    // this.inEditMode$.subscribe(value => console.log('inEditMode$', value));
+    // this.isLoading$.subscribe(value => console.log('isLoading$', value));
+
     this.store.dispatch(userProfileSetEditMode({ isEdit: !currentValue }));
   }
 
@@ -48,13 +62,12 @@ export class ProfileComponent implements OnInit {
         this.store.dispatch(userProfileSetEditMode({ isEdit: false }));
       },
       error: (err) => {
-        this.store.dispatch(
-          userProfileSetErrorMessage({ message: err.error.message })
-        );
+        this.store.dispatch(userProfileSetErrorMessage({ message: err.error.message }));
         console.error(err);
-      },
+      }
     });
   }
+
 }
 
 

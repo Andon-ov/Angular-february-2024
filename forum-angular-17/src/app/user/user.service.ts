@@ -47,13 +47,19 @@ export class UserService {
   getCurrentUserProfile(): Observable<any> {
     return this.http
       .get<IUser>(`api/users/profile`)
-      .pipe(tap((user: IUser) => this.store.dispatch(updateUser({ user }))));
+      .pipe(tap((user: IUser) => {
+        console.log(user, "getCurrentUserProfile()")
+        this.store.dispatch(updateUser({user}))
+      }));
   }
 
   updateProfile(data: any): Observable<any> {
     return this.http
       .put<IUser>(`api/user/profile`, data)
-      .pipe(tap((user: IUser) => this.store.dispatch(updateUser({ user }))));
+      .pipe(tap((user: IUser) => {
+        console.log(user, "updateProfile()", data)
+        this.store.dispatch(updateUser({user}))
+      }));
   }
 
 

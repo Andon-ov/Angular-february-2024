@@ -21,14 +21,20 @@ export const initialLoginState: ILoginState = {
 export const loginReducer = createReducer<ILoginState>(
   initialLoginState,
   on(userLoginSetErrorMessage, (state, action) => {
+    console.log('userLoginSetErrorMessage')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
+
     return { ...state, errorMessage: action.message };
   }),
   on(userLoginSetLoading, (state, action) => {
+
+    console.log('userLoginSetLoading')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
     return { ...state, isLoading: action.isLoading };
   })
 );
-
-
 
 export interface IRegisterState {
   errorMessage: string | null;
@@ -43,13 +49,19 @@ export const initialRegisterState: IRegisterState = {
 export const registerReducer = createReducer<IRegisterState>(
   initialRegisterState,
   on(userRegisterSetErrorMessage, (state, action) => {
+    console.log('userRegisterSetErrorMessage')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
     return { ...state, errorMessage: action.message };
   }),
   on(userRegisterSetLoading, (state, action) => {
+
+    console.log('userRegisterSetLoading')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
     return { ...state, isLoading: action.isLoading };
   })
 );
-
 
 export interface IProfileState {
   isEditMode: boolean;
@@ -64,14 +76,31 @@ export const initialProfileState: IProfileState = {
 export const profileReducer = createReducer<IProfileState>(
   initialProfileState,
   on(userProfileSetEditMode, (state, action) => {
+
     const isLoading = !action.isEdit ? false : state.isLoading;
+    console.log('userProfileSetEditMode')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
+    console.log('isLoading:', isLoading)
+
     return { ...state, isEditMode: action.isEdit, isLoading };
   }),
-  on(userLoginSetLoading, (state, action) => {
+
+ on(userLoginSetLoading, (state, action) => {
+    console.log('userLoginSetLoading')
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
+
     return { ...state, isLoading: action.isLoading };
   }),
+
   on(userProfileSetErrorMessage, (state, action) => {
     const isLoading = false;
+    console.log('userProfileSetErrorMessage')
+    console.log('isLoading:', isLoading)
+    console.log('Action Payload:', action);
+    console.log('Current State:', state);
+
     return { ...state, errorMessage: action.message, isLoading };
   }),
 );

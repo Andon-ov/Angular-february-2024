@@ -9,6 +9,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './loader.component.css',
 })
 export class LoaderComponent {
+
   @Input()
-  isLoading!: boolean;
+  isLoading: boolean = false;
+
+  constructor() { }
+
+
 }

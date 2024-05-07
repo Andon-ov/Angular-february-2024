@@ -3,11 +3,11 @@ import { login, register, logout, authenticate } from './actions';
 import { IUser } from '../shared/types';
 
 export interface AuthState {
-  currentUser: IUser | null | undefined;
+  currentUser: IUser | null ;
 }
 
 export const initialState: AuthState = {
-  currentUser: undefined,
+  currentUser: null,
 };
 
 const setCurrentUser = (
@@ -17,6 +17,7 @@ const setCurrentUser = (
     | ReturnType<typeof register>
     | ReturnType<typeof authenticate>
 ) => {
+  console.log('state:', state, 'actions:', action)
   return { ...state, currentUser: action.user };
 };
 
