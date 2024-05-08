@@ -17,21 +17,11 @@ import { ThemeService } from '../theme.service';
 })
 export class ThemesListComponent {
 
-  themeList: ITheme[] | undefined;
+  themeList$ = this.store.select(state => state.theme.list.themeList);
 
-  constructor(private themeService: ThemeService) { }
-
-  ngOnInit(): void {
-    this.themeService.loadThemeList().subscribe(themeList => {
-      this.themeList = themeList;
-    });
+  constructor(private store: Store<IThemeModuleState>) {
+    this.store.dispatch(themeListLoadThemeList());
   }
-
-  // themeList$ = this.store.select(state => state.theme.list.themeList);
-
-  // constructor(private store: Store<IThemeModuleState>) {
-  //   this.store.dispatch(themeListLoadThemeList());
-  // }
 
 
 }

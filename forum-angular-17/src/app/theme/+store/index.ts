@@ -18,3 +18,4 @@ export const reducers: ActionReducerMap<IThemeState> = {
 };
 
 export { themeListReducer, themeDetailReducer };
+

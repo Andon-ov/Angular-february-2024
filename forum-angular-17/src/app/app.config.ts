@@ -1,36 +1,39 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, isDevMode} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { combineReducers, provideStore } from '@ngrx/store';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+import {routes} from './app.routes';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideStore} from '@ngrx/store';
+import {provideStoreDevtools} from '@ngrx/store-devtools';
 
-
-
-import { appInterceptor } from './app.interceptor';
-import { reducers } from './+store';
-
+import {reducers as themeReducers} from './theme/+store';
+import {reducers as userReducers} from './user/+store';
+import {reducers as authReducers} from './+store';
 
 
+import {appInterceptor} from './app.interceptor';
 
-// const appReducers = combineReducers({
-//   user: userReducers,
-//   theme: themeReducers,
-//   product: productReducers
-// });
+
+const appReducers = {
+  ...themeReducers,
+  ...userReducers,
+  ...authReducers,
+};
+
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([appInterceptor])),
-    provideStore(reducers),
- 
+
+    // provideStore(reducers),
+    provideStore(appReducers),
+
 
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ], // adding provide here
-  // and connect +store after install ng add @ngrx/store-devtools@latest
+    // and connect +store after install ng add @ngrx/store-devtools@latest
 };
 
 // providers: [

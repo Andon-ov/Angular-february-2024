@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITheme } from '../../shared/types/theme';
+import { ITheme } from '../../shared/types';
 import { RouterLink } from '@angular/router';
 
 @Component({

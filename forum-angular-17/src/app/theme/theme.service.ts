@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ITheme } from '../shared/types/theme';
-import { IPost } from '../shared/types/post';
+import { ITheme } from '../shared/types';
+import { IPost } from '../shared/types';
 
 @Injectable()
 export class ThemeService {

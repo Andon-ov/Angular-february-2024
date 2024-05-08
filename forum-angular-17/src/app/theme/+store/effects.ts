@@ -1,9 +1,7 @@
 
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { ThemeService } from '../theme.service';
-import { PostService } from '../../services/post.service';
 
 import {
   themeListLoadPostList,
@@ -16,6 +14,8 @@ import { ITheme } from '../../shared/types';
 import { of } from 'rxjs';
 import { ActionCreator } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
+import {PostService} from "../../post/post.service";
+import { Actions } from '@ngrx/effects';
 
 @Injectable()
 export class ThemeListEffects {
@@ -43,11 +43,13 @@ export class ThemeListEffects {
 
   loadPostList$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(themeListLoadPostList),
+      ofType(themeListLoadThemeList), // Use the correct action type here
       switchMap(() => this.postService.loadPostList()),
       map((postList) => themeListSetPostList({ postList })) // Cast postList to expected type
     )
   );
+
+
 }
 
 

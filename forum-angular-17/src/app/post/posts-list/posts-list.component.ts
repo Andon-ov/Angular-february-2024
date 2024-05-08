@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component, Input } from '@angular/core';
 import { IPost } from '../../shared/types';
-import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -11,18 +9,9 @@ import { PostService } from '../post.service';
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.css',
 })
-export class PostsListComponent implements OnInit {
-  
-  // @Input() themeId: string | undefined;
+export class PostsListComponent {
 
-  postList: IPost[] | undefined;
+  @Input() themeId: string | undefined;
 
-  constructor(private postService: PostService) {}
-  ngOnInit(): void {
-    this.postService.loadPostList(5).subscribe((postList) => {
-      this.postList = postList;
-      console.log(postList);
-      
-    });
-  }
+  @Input() postList: IPost[] | undefined;
 }

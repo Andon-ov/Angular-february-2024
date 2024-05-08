@@ -1,8 +1,19 @@
-<main class="container">
-  <app-themes-list />
-  <aside>
-    <app-aside>
-      <app-posts-list />
-    </app-aside>
-  </aside>
+<!--<main class="container">-->
+<!--  <app-themes-list />-->
+<!--  <aside>-->
+<!--    <app-aside>-->
+<!--      <app-posts-list />-->
+<!--    </app-aside>-->
+<!--  </aside>-->
+<!--</main>-->
+
+{{isLoading$ | async}}
+<main>
+  <app-theme-list></app-theme-list>
 </main>
+
+<aside>
+  <app-aside>
+    <app-post-list [postList]="postList$ | async"></app-post-list>
+  </app-aside>
+</aside>
