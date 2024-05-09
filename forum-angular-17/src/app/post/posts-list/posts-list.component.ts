@@ -10,8 +10,8 @@ import { IPost } from '../../shared/types';
   styleUrl: './posts-list.component.css',
 })
 export class PostsListComponent {
-
   @Input() themeId: string | undefined;
 
   @Input() postList: IPost[] | undefined;
+
 }

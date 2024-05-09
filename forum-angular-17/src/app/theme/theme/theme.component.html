@@ -9,11 +9,11 @@
 
 {{isLoading$ | async}}
 <main>
-  <app-theme-list></app-theme-list>
+  <app-themes-list/>
 </main>
 
 <aside>
   <app-aside>
-    <app-post-list [postList]="postList$ | async"></app-post-list>
+    <app-posts-list [postList]="postList$ | async"/>
   </app-aside>
 </aside>

@@ -4,7 +4,6 @@ import { ThemeListItemComponent } from "../theme-list-item/theme-list-item.compo
 import { IThemeModuleState } from '../+store';
 import { Store } from '@ngrx/store';
 import { themeListLoadThemeList } from '../+store/actions';
-import { ITheme } from '../../shared/types';
 import { ThemeService } from '../theme.service';
 
 @Component({
@@ -21,6 +20,7 @@ export class ThemesListComponent {
 
   constructor(private store: Store<IThemeModuleState>) {
     this.store.dispatch(themeListLoadThemeList());
+
   }
 
 

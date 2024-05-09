@@ -37,13 +37,13 @@ export const themeDetailReducer = createReducer<IThemeDetailState>(
 
 export interface IThemeListState {
   themeList: ITheme[] | null;
-  postList: IPost[] | null;
+  postList: IPost[] | undefined;
   isLoading: boolean;
 }
 
 export const initialThemeListState: IThemeListState = {
   themeList: null,
-  postList: null,
+  postList: undefined,
   isLoading: false
 };
 
